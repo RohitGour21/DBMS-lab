@@ -1,0 +1,35 @@
+CREATE TABLE Department (
+    Dept_ID INT PRIMARY KEY,
+    Dept_Name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Student (
+    Student_ID INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Dept_ID INT,
+    FOREIGN KEY (Dept_ID)
+        REFERENCES Department(Dept_ID)
+        ON DELETE SET NULL
+);
+
+CREATE TABLE Course (
+    Course_ID INT PRIMARY KEY,
+    Course_Name VARCHAR(100) NOT NULL,
+    Credits INT NOT NULL
+);
+
+CREATE TABLE Enrollment (
+    Student_ID INT,
+    Course_ID INT,
+    Enroll_Date DATE NOT NULL,
+    PRIMARY KEY (Student_ID, Course_ID),
+
+    FOREIGN KEY (Student_ID)
+        REFERENCES Student(Student_ID)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (Course_ID)
+        REFERENCES Course(Course_ID)
+        ON DELETE CASCADE
+);
